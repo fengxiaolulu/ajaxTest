@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AJAX-读取纯文本</title>
+	</head>
+	<body>
+		<button id="button">点击获取纯文本</button>
+		<br />
+		<div id="text"></div>
+		
+		<script>
+			
+			document.getElementById('button').addEventListener('click',loadText);
+			
+			function loadText (){
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET','sample.txt',true);
+				xhr.onload = function(){
+					document.getElementById('text').innerHTML = this.responseText;
+				};
+				
+				xhr.send();
+			}
+			
+		</script>
+	</body>
+</html>

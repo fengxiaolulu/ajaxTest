@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AJAX请求PHP数据</title>
+	</head>
+	<body>
+		<button id="button">获取php数据</button>
+		<br />
+		<h1>正常表单GET数据</h1>
+		<form action="process.php" method="get">
+			<input type="text" name="name" />
+			<input type="submit" value="提交" />
+		</form>
+		<br />
+		<h1>AJAX GET数据</h1>
+		<form id="getform">
+		   <input type="text" name="name" id="name1" />
+		   <input type="submit" value="提交" />
+		</form>
+		<br />
+		<h1>正常表单POST数据</h1>
+		<form action="process.php" method="post">
+			<input type="text" name="name" />
+			<input type="submit" value="提交" />
+		</form>
+		<br />
+		<h1>AJAX POST数据</h1>
+		<form id="postform">
+		   <input type="text" name="name" id="name2" />
+		   <input type="submit" value="提交" />
+		</form>
+		
+		<script>
+			
+			document.getElementById('button').addEventListener('click',getdata);
+			document.getElementById('getform').addEventListener('submit',getform);
+			document.getElementById('postform').addEventListener('submit',postform);
+			
+			function getdata (){
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET','process.php',true);
+				xhr.onload = function(){
+					alert(this.responseText);
+				};
+				
+				xhr.send();
+			}
+			
+			function getform (e){
+				e.preventDefault();
+				var xhr = new XMLHttpRequest();
+				var name = document.getElementById('name1').value;
+				xhr.open('GET','process.php?name='+name,true);
+				xhr.onload = function(){
+					alert(this.responseText);
+				};
+				
+				xhr.send();
+			}
+			
+			function postform (e){
+				e.preventDefault();
+				var xhr = new XMLHttpRequest();
+				var name = "name=" + document.getElementById('name2').value;
+				xhr.open('POST','process.php',true);
+				//设置请求头
+				xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+				xhr.onload = function(){
+					alert(this.responseText);
+				};
+				
+				xhr.send(name);
+			}
+			
+		</script>
+	</body>
+</html>
